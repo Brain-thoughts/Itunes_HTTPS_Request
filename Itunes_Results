@@ -1,0 +1,20 @@
+import requests
+import json
+import sys
+
+# user argument case
+if len(sys.argv) != 2:
+    sys.exit()
+
+# making a HTTPS request here 
+response = requests.get("https://itunes.apple.com/search?entity=song&lim=1&term=" + sys.argv[1])
+
+#converting request response to an object variable to manipulate what data we receive
+o = response.json()
+
+# for every result from "results" we're gonna print the track name and the genre. also tabbing the genre!
+for result in o["results"]:
+    print("===================================")
+    print("Track: " + result["trackName"])
+    print("\tGenre: " + result["primaryGenreName"])
+    print("===================================")
